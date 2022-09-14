@@ -8,7 +8,7 @@ import cv2
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Conv2D, Input, Activation, BatchNormalization, Dense
 import random
-from skimage.metrics import structural_similarity as ssim
+# from skimage.metrics import structural_similarity as ssim
 
 # setting for GPU
 def setup_seed(seed):
