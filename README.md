@@ -14,7 +14,7 @@ Here is the list of libraries you need to install to execute the code:
 
 In the simulation, run the simulation_demo program.
 
-For the reconstruction without aberration and intensity fluctuation, set defocus z = 0 and mode = 0, then use the function named train2.
+For the reconstruction without aberration and intensity fluctuation, set z = 0 and mode = 0, then use the function named train2.
 
 For the reconstruction with aberration, set z = 2e-4 or 2e-5, mode = 1, then use the function named train2.
 
