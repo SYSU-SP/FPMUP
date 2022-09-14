@@ -27,8 +27,8 @@ In the experiment, run the experiment_demo program.
 Choose im1 or im2 for different datasets, then use the function named trainrealdata.
 
 # 4.Data description
-In simulation, west.tiff and cameraman.tif are the ground truth used for phase and amplitude. And kmat_smi.mat is the wave vector k of each LED.
+In simulation, data west.tiff and cameraman.tif are the ground truth used for phase and amplitude. Data kmat_smi.mat is the wave vector k of each LED.
 
-In experiment, bloodsmear_red.mat and USAF_red.mat are the measurents dataset from Guoan Zheng. kxky.mat is the wave vector k of each LED. And seq.mat is the sequence of illumination LED.
+In experiment, data bloodsmear_red.mat and USAF_red.mat are the measurents dataset from Prof. Guoan Zheng’s group (https://github.com/SmartImagingLabUConn/Fourier-Ptychography). Data kxky.mat is the wave vector k of each LED. And data seq.mat is the sequence of illumination LED in experiment.
 
 
