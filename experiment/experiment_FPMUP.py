@@ -55,7 +55,7 @@ def Zernike_aberration(z,x,y):
     r,theta = cv2.cartToPolar(x/cutoffFrequency, y/cutoffFrequency)
     r = tf.cast(r,dtype=float)
     theta = tf.cast(theta,dtype=float)
-    out = z[0]+z[1]*2*r*tf.cos(theta)-z[2]*2*r*tf.sin(theta)-z[3]*tf.sqrt(6.0)*r**2*tf.sin(2*theta) + \
+    out = z[0]+1*z[1]*2*r*tf.cos(theta)-1*z[2]*2*r*tf.sin(theta)-z[3]*tf.sqrt(6.0)*r**2*tf.sin(2*theta) + \
         z[4]*tf.sqrt(3.0)*(2*r**2-1)+ z[5]*tf.sqrt(6.0)*r**2*tf.cos(2*theta)-\
         z[6]*tf.sqrt(8.0)*r**3*tf.sin(3*theta)-z[7]*tf.sqrt(8.0)*(3*r**3-2*r)*tf.sin(theta)+\
         z[8]*(3*r**3-2*r)*tf.cos(theta)+z[9]*tf.sqrt(8.0)*r**3*tf.cos(3*theta)-z[10]*tf.sqrt(10.0)*r**4*tf.sin(4*theta)-\
@@ -176,13 +176,14 @@ def train(dataset, epochs):
                 print('finished percent : %', (epoch+1) * 100 / epochs, '    loss is : ', loss_sum1.numpy())
                 showimage(objtestA, objtestP, objestAber, intensity, epoch)
     time_end = time.time()
-    io.savemat('./imT.mat', {'imT': np.squeeze(objtestA)})
-    io.savemat('./imT2.mat', {'imT2': np.squeeze(objtestP)})
-    io.savemat('./intensityrecover.mat', {'intenarecover': np.squeeze(intensity)})
+    io.savemat('./datasave/A_recovered.mat', {'A': np.squeeze(objtestA)})
+    io.savemat('./datasave/P_recovered.mat', {'P': np.squeeze(objtestP)})
+    intensity_recovered = tran_array((tf.squeeze(intensity)).numpy())
+    io.savemat('./datasave/intensity_recovered.mat', {'intensity': intensity_recovered})
     pupil = Zernike_aberration(tf.cast(tf.squeeze(objestAber), dtype=float), kxm, kym)
     pupil = tf.complex(tf.cos(pupil), tf.sin(pupil))
-    io.savemat('./Zernikco.mat', {'Zernikco': objestAber.numpy()})
-    io.savemat('./Zernikco2.mat', {'Zernikco2': pupil.numpy()})
+    # io.savemat('./datasave/Zernikco.mat', {'Zernikco': objestAber.numpy()})
+    io.savemat('./datasave/pupil_recovered.mat', {'pupil': pupil.numpy()})
     plt.figure(2)
     plt.imshow((tf.squeeze(objtestA)).numpy(), cmap='gray')
     plt.figure(3)
