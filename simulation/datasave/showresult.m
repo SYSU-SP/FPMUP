@@ -4,7 +4,6 @@ load('P_recovered.mat')
 load('pupil_recovered.mat')
 load('intensity_recovered.mat')
 figure;
-const = 0.000;
 fsize =10;
 set(gcf,'Position',[100 100 400 400]);
 subplot(2,2,1)
