@@ -54,10 +54,6 @@ tp = 20
 
 def datasetmake(object,z,flag):
     pupil = np.exp(1j * z * np.real(kzm)) * np.exp(-np.abs(z) * np.abs(np.imag(kzm))) * CTF
-    scipy.io.savemat('./pupilGT.mat', {'pupilGT': np.squeeze(pupil)})
-    # plt.figure(1)
-    # plt.imshow((tf.math.angle(pupil)).numpy())
-    # plt.show()
     imSeqLowRes = np.zeros((1, 64, 64, 225))
     objectFT = np.fft.fftshift(np.fft.fft2(object))
     for tt in range(0, arraysize ** 2):
@@ -218,13 +214,14 @@ def train(dataset, epochs,flag):
                 print('finished percent : %', (epoch+1) * 100 / epochs, '    loss is : ', loss_sum1.numpy())
                 showimage(objtestA,objtestP,objestAber,ratio4,epoch,flag)
     time_end = time.time()
-    scipy.io.savemat('./imT.mat',{'imT':np.squeeze(objtestA)})
-    scipy.io.savemat('./imT2.mat', {'imT2': np.squeeze(objtestP)})
-    scipy.io.savemat('./intensityrecover.mat',{'intenarecover':np.squeeze(ratio4)})
+    scipy.io.savemat('./datasave/A_recovered.mat',{'A':np.squeeze(objtestA)})
+    scipy.io.savemat('./datasave/P_recovered.mat', {'P': np.squeeze(objtestP)})
+    intensity_recovered = tran_array((tf.squeeze(ratio4)).numpy())
+    scipy.io.savemat('./datasave/intensity_recovered.mat',{'intensity':np.squeeze(intensity_recovered)})
     pupil = Zernike_aberration(tf.cast(tf.squeeze(objestAber), dtype=float), kxm, kym)
     pupil = tf.complex(tf.cos(pupil), tf.sin(pupil))
-    scipy.io.savemat('./Zernikco.mat',{'Zernikco':objestAber.numpy()})
-    scipy.io.savemat('./Zernikco2.mat',{'Zernikco2':pupil.numpy()})
+    # scipy.io.savemat('./datasave/Zernikco.mat',{'Zernikco':objestAber.numpy()})
+    scipy.io.savemat('./datasave/pupil_recovered.mat',{'pupil':pupil.numpy()})
     plt.figure(2)
     plt.imshow((tf.squeeze(objtestA)).numpy(), cmap='gray')
     plt.figure(3)

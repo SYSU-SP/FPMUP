@@ -17,5 +17,6 @@ obP = cv2.normalize(obP, None, 0, 1.0, cv2.NORM_MINMAX)
 obP = obP * np.pi
 object = obA * np.exp(obP * 1j)
 
+##### simulation for no aberration, only defocus aberration and defocus aberration + intensity fluctuation
 train2(object, z, mode, epoch)
 
